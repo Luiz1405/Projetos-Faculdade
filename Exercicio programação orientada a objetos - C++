@@ -1,0 +1,57 @@
+#include <iostream>
+
+using namespace std;
+
+class elevador {
+private:
+      int capacidade, totalAndares, numPessoas, andarAtual;
+public:
+      elevador(int cap, int totAnd) { inicializa(cap, totAnd); }
+      void inicializa (int cap, int totAnd){
+        capacidade = cap;
+        totalAndares = totAnd;
+        numPessoas = 0;
+        andarAtual = 0; 
+      }
+      
+      bool entra() {
+        if ( numPessoas >= capacidade ) return false;
+        ++numPessoas;
+        return true;
+      }
+      bool sai() {
+        if ( numPessoas <= 0 ) return false;
+        --numPessoas;
+        return true;
+      }
+      bool sobe() {
+        if ( andarAtual >= totalAndares) return false;
+        ++andarAtual;
+        return true;
+      }
+      bool desce() {
+        if ( andarAtual <= 0 ) return false;
+        --andarAtual;
+        return true;
+      }
+      int obtemCapacidade() { return capacidade;}
+      int obtemtotalAndares() { return totalAndares;}
+      int obtemnumPessoas() { return numPessoas;}
+      int obtemandarAtual() { return andarAtual;}
+};
+
+int main() {
+  elevador e(8,10);
+  e.entra();
+  e.sobe();
+  e.entra(); e.entra();
+  e.sobe();
+  e.entra(); e.sai();
+  e.sobe();
+  e.sobe();
+  e.sobe();
+  e.desce();
+  cout << "e.obtemnumPessoas() = " << e.obtemnumPessoas() << end1; //3
+  cout << "e.obtemandarAtual() = " << e.obtemandarAtual() << end1; //4
+  return 0;
+}
