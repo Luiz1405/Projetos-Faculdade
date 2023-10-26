@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <strings.h>
+
+int main() {
+
+  int sabores_escolhidos[4] = {0};
+  int quantidade_esfiha, soma2;
+  int contador_esfiha[4] = {0};
+  int esfihas_adicionais = 0;
+  int continuar = 1;
+  int total_esfihas = 0;
+  float v = 2.20;
+  float soma1;
+  char *sabores[] = {"Carne", "Frango", "Queijo", "Ervas"};
+  char resposta[10];
+
+  printf("---------------------------------------------------------------------"
+         "-------------\n");
+  printf("Bem vindo(a) ao Rabibs, abaixo está o nosso cardárpio de esfihas:\n");
+  printf("---------------------------------------------------------------------"
+         "-------------\n");
+  printf("0 - %s     Valor: R$%.2f             *Escolha o sabor com base no "
+         "seu número\n",
+         sabores[0], v);
+  printf("1 - %s    Valor: R$%.2f              Correspondente.\n", sabores[1],
+         v);
+  printf("2 - %s    Valor: R$%.2f \n", sabores[2], v);
+  printf("3 - %s     Valor: R$%.2f", sabores[3], v);
+  puts("\n");
+  printf("Hoje também estamos com uma promoção.");
+  puts("\n");
+  printf("- A cada cinco esfihas de carne, você ganha uma a mais.\n");
+  printf("- A cada quatro esfihas de frango, você ganha uma a mais.\n");
+  printf("- A cada cinco esfihas de queijo, você ganha uma a mais.\n");
+  printf("- A cada três esfihas de ervas, você ganha uma a mais.");
+  puts("\n");
+  printf("* E se por um caso o seu pedido tiver 7 esfihas adicionais,\n  você "
+         "também leva uma porção de salada e um remédio para ajudar na "
+         "disgestão depois.");
+  puts("\n");
+
+  int sabor_atual;
+
+  while (continuar) {
+    printf("Qual sabor você vai querer? ");
+    scanf("%d", &sabor_atual);
+
+    if (sabor_atual >= 0 && sabor_atual <= 3) {
+      printf("Certo, quantas esfihas de %s você vai querer? ",
+             sabores[sabor_atual]);
+      scanf("%d", &quantidade_esfiha);
+      puts("");
+      sabores_escolhidos[sabor_atual] += quantidade_esfiha;
+      total_esfihas += quantidade_esfiha;
+
+    } else {
+      printf("Não temos este sabor.\n");
+      getchar();
+    }
+    printf("Gostaria de pedir outro sabor? ");
+    scanf("%s", resposta);
+    puts("");
+
+    if (strcasecmp(resposta, "sim") == 0) {
+      continuar = 1;
+
+    } else if (strcasecmp(resposta, "nao") == 0) {
+      continuar = 0;
+
+    } else {
+      printf("Resposta inválida!\n");
+    }
+  }
+
+  if (sabores_escolhidos[0] >= 5) {
+    int esfihas_carne_extras = sabores_escolhidos[0] / 5;
+    esfihas_adicionais += esfihas_carne_extras;
+    sabores_escolhidos[0] %= 5;
+  }
+  if (sabores_escolhidos[1] >= 4) {
+    int esfihas_frango_extras = sabores_escolhidos[1] / 4;
+    esfihas_adicionais += esfihas_frango_extras;
+    sabores_escolhidos[1] %= 4;
+  }
+  if (sabores_escolhidos[2] >= 5) {
+    int esfihas_queijo_extras = sabores_escolhidos[2] / 5;
+    esfihas_adicionais += esfihas_queijo_extras;
+    sabores_escolhidos[2] %= 5;
+  }
+  if (sabores_escolhidos[3] >= 3) {
+    int esfihas_ervas_extras = sabores_escolhidos[3] / 3;
+    esfihas_adicionais += esfihas_ervas_extras;
+    sabores_escolhidos[3] %= 3;
+  }
+  printf("Por conta da nossa promoção, você ganhou %d esfihas adicionais.\n",
+         esfihas_adicionais);
+  soma1 = total_esfihas * v;
+  soma2 = total_esfihas + esfihas_adicionais;
+  if (esfihas_adicionais >= 7) {
+    printf("Finalizamos o seu pedido com %d esfihas, uma porção de salada e um "
+           "remédio para o estomago, tudo ficou por: R$%2.f.",
+           soma2, soma1);
+  } else {
+    printf("Finalizamos o seu pedido com %d esfihas, ficou por: R$%2.f ", soma2,
+           soma1);
+  }
+  puts("\n");
+  printf("Obrigado por comprar no habibs, volte sempre. ");
+
+  return 0;
+}
